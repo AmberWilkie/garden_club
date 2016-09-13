@@ -17,3 +17,7 @@ end
 Then(/^I should be on the "([^"]*)" page$/) do |page|
   expect(current_path).to eq registration_index_path
 end
+
+Given(/^I am on my "([^"]*)" page$/) do |arg1|
+  visit profile_index_path
+end
