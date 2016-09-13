@@ -15,7 +15,12 @@ When(/^I click the "([^"]*)" button$/) do |button|
 end
 
 Then(/^I should be on the "([^"]*)" page$/) do |page|
-  expect(current_path).to eq registration_index_path
+  goto = profile_edit_path if page == "Edit Profile"
+  expect(current_path).to eq goto
+end
+
+When(/^I click the "([^"]*)" link$/) do |link|
+  click_link(link)
 end
 
 Given(/^I am on my "([^"]*)" page$/) do |arg1|

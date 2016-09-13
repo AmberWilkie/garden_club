@@ -5,3 +5,5 @@ Feature: As a user
 Scenario:
   Given I am on my "profile" page
   Then I should see "My Profile"
+  When I click the "Edit Profile" link
+  Then I should be on the "Edit Profile" page
