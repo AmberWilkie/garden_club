@@ -2,8 +2,13 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if :authenticate_user!
+
+    user ||= User.new #either logged in or a guest user
+
+    if user.id != nil
       can :private
+    else
+      cannot :private
     end
     # Define abilities for the passed in user here. For example:
     #

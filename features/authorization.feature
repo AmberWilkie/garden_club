@@ -15,7 +15,9 @@ Scenario: I visit a part of the site only authorized users can access
   And I should see "you are authorized to be here!"
 
 Scenario: Trying to visit the protected site when not logged in
-  Given I log out as "Anna"
-  When I visit the "private information" page
+  Given I am not logged in
+  And I am on the "home" page
+  Then I should not see "see private information"
+  When I try to visit the "private information" page
   Then I should be on the "home" page
   And I should see "You are not authorized to access that page"

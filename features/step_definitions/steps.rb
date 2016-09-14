@@ -10,8 +10,19 @@ When(/^I visit the "([^"]*)" page$/) do |page|
   expect(current_path).to eq @goto
 end
 
+When(/^I try to visit the "([^"]*)" page$/) do |page|
+# Use this test for when you are *trying* to visit a page, but expect to end up on another page
+  set_goto(page)
+  visit @goto
+  expect(current_path).not_to eq @goto
+end
+
 Then(/^I should see "([^"]*)"$/) do |text|
   expect(page).to have_content(text)
+end
+
+Then(/^I should not see "([^"]*)"$/) do |text|
+  expect(page).not_to have_content(text)
 end
 
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |element, text|
@@ -37,6 +48,16 @@ Given(/^I am logged in$/) do
   fill_in "Password", with: 'MyPassword'
   click_button "Log in"
   expect(page).to have_content "Signed in successfully"
+end
+
+Given(/^I am not logged in$/) do
+  current_driver = Capybara.current_driver
+  begin
+    Capybara.current_driver = :rack_test
+    page.driver.submit :delete, "/users/sign_out", {}
+  ensure
+    Capybara.current_driver = current_driver
+  end
 end
 
 When(/^I log out as "([^"]*)"$/) do |name|
