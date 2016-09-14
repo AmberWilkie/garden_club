@@ -37,4 +37,5 @@ def set_goto(page)
   @goto = new_user_registration_path if page == "registration"
   @goto = edit_user_registration_path if page == "Edit Profile"
   @goto = profile_path if page == "Profile"
+  @goto = private_path if page == "private information"
 end
